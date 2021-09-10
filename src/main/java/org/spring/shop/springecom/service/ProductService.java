@@ -22,6 +22,15 @@ public class ProductService {
         products.set(products.indexOf(product), product);
     }
 
+    public void updateProduct(Product product, String name, String make, String model, int price, int stock){
+        product.setName(name);
+        product.setMake(make);
+        product.setModel(model);
+        product.setPrice(price);
+        product.setStock(stock);
+        updateProduct(product);
+    }
+
     public Object getProducts() {
         return products;
     }
@@ -38,6 +47,10 @@ public class ProductService {
             }
         }
         return p;
+    }
+
+    public void deleteProduct(int id) {
+        products.remove(getProduct(id));
     }
 
 }

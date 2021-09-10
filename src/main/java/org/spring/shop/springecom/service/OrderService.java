@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 public class OrderService {
 
 	private List<Order> orders = new ArrayList<>();
+	
+	private List<Product> orderedProducts = new ArrayList<>();
 
 	public List<Order> getOrders(String username) {
 		return orders
@@ -22,6 +24,10 @@ public class OrderService {
 
 	public List<Order> getOrders() {
 		return orders;
+	}
+
+	public void addOrder(List<Product> products, User user){
+		orders.add(createOrder(products, user));
 	}
 
 	public Order createOrder(List<Product> products, User user) {
@@ -38,5 +44,13 @@ public class OrderService {
 
 	public void removeOrder(Order order){
 		orders.remove(order);
+	}
+
+	public void addToCard(Product product) {
+		orderedProducts.add(product);
+	}
+
+	public void removeToCard(Product product){
+		orderedProducts.remove(product);
 	}
 }
