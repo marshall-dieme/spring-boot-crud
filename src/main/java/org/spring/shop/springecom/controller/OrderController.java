@@ -28,19 +28,28 @@ public class OrderController {
     @GetMapping(value = "/list")
     public String getUserOrders(ModelMap model){
         User user = (User) model.get("user");
-        if (user.getProfil().equalsIgnoreCase("admin")) 
+        if (user.getProfil().equalsIgnoreCase("admin")) {
             model.put("orders", orderService.getOrders());
-        else
+        } else {
+            model.put("orderedProducts", orderService.getOrdered());
             model.put("orders", orderService.getOrders(user.getUsername()));
-        return "orders/list";
+        }
+        return "orders/index";
     }
 
     @GetMapping(value = "/add/{id}")
     public String addToCard(HttpServletRequest request, @PathVariable int id, ModelMap model){
-        orderService.addToCard(productService.getProduct(id));
-        return request.getHeader("Referer");
+        User user = (User) model.get("user");
+        user.addProduct(productService.getProduct(id));
+        model.put("user", user);
+        return "redirect:" + request.getHeader("Referer");
     }
 
 
-
+    public String removeOrder(HttpServletRequest request, @PathVariable int id, ModelMap model) {
+        User user = (User) model.get("user");
+        user.removeProduct(productService.getProduct(id));
+        model.put("user", user);
+        return "redirect:" + request.getHeader("Referer");
+    }
 }

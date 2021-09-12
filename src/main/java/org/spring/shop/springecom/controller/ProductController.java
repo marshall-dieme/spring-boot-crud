@@ -1,5 +1,7 @@
 package org.spring.shop.springecom.controller;
 
+import org.spring.shop.springecom.model.User;
+import org.spring.shop.springecom.service.OrderService;
 import org.spring.shop.springecom.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 public class ProductController {
     @Autowired
     ProductService productService;
+    @Autowired
+    OrderService orderService;
 
     @GetMapping(value = "/list")
     public String list(ModelMap model){
@@ -58,5 +62,11 @@ public class ProductController {
         return "products/show";
     }
     
-    
+    public void getOrderList(ModelMap model){
+        User user = (User) model.get("user");
+        if (user.getProfil().equalsIgnoreCase("admin")) 
+            model.put("orders", orderService.getOrders());
+        else
+            model.put("orders", orderService.getOrders(user.getUsername()));
+    }
 }

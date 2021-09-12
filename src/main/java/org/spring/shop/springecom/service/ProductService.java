@@ -10,6 +10,13 @@ import org.springframework.stereotype.Service;
 public class ProductService {
     private static List<Product> products = new ArrayList<>();
 
+    static {
+        products.add(new Product("HP Spectre", "HP", "Spectre", 1200));
+        products.add(new Product("HP Omen", "HP", "Omen", 995));
+        products.add(new Product("MacBook Pro", "Apple", "MacBook", 1299));
+        products.add(new Product("Asus Rogue", "Asus", "Rogue", 790));
+    }
+
     public void addProduct(Product product){
         products.add(product);
     }

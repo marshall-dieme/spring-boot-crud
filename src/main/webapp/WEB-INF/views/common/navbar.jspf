@@ -12,9 +12,26 @@
             <li class="nav-item">
                 <a class="nav-link" href="#">Products</a>
             </li>
+            <c:if test="${user.profil == 'ADMIN'}">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Orders</a>
+                </li>
+            </c:if>
             
         </ul>
         
-        <a class="btn btn-outline-danger my-2 my-sm-0" href="logout">Logout</a>
+        <c:if test="${user.profil == 'CUSTOMER'}">
+            <a class="btn btn-light my-2 my-sm-0" href="/orders/list">
+                Card <span class="badge badge-danger">${fn:length(user.ordered)}</span>
+            </a>
+        </c:if>
+        <c:choose>
+            <c:when test="${!empty user}">
+                <a class="btn btn-outline-danger my-2 my-sm-0" href="/logout">Logout</a>
+            </c:when>
+            <c:otherwise>
+                <a class="btn btn-primary my-2 my-sm-0" href="/login">Login</a>
+            </c:otherwise>
+        </c:choose>
     </div>
 </nav>

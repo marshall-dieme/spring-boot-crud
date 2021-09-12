@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class OrderService {
 
 	private List<Order> orders = new ArrayList<>();
-	
+
 	private List<Product> orderedProducts = new ArrayList<>();
 
 	public List<Order> getOrders(String username) {
@@ -52,5 +52,9 @@ public class OrderService {
 
 	public void removeToCard(Product product){
 		orderedProducts.remove(product);
+	}
+
+	public List<Product> getOrdered() {
+		return orderedProducts;
 	}
 }

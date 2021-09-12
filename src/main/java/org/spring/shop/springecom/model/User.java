@@ -1,5 +1,6 @@
 package org.spring.shop.springecom.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,6 +10,7 @@ public class User {
     private String password;
     private String profil;
     private List<Order> orders;
+    private List<Product> ordered = new ArrayList<>();
 
     public User() {
     }
@@ -112,4 +114,38 @@ public class User {
             ", orders='" + getOrders() + "'" +
             "}";
     }
+
+    /**
+     * @return List<Product> return the ordered
+     */
+    public List<Product> getOrdered() {
+        return ordered;
+    }
+
+    /**
+     * @param ordered the ordered to set
+     */
+    public void setOrdered(List<Product> ordered) {
+        this.ordered = ordered;
+    }
+
+    public void addProduct(Product p){
+        boolean find = false;
+        for (Product product : ordered) {
+            if (product.equals(p)) {
+                find = true;
+                product.setCommand(product.getCommand()+1);
+                break;
+            }
+        }
+        if (!find) {
+            p.setCommand(p.getCommand()+1);
+            this.ordered.add(p);
+        }
+    }
+
+    public void removeProduct(Product product) {
+        ordered.remove(product);
+    }
+
 }
